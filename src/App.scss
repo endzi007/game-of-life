@@ -1,0 +1,35 @@
+@import './assets/css/font-awesome.css';
+@mixin determineSize(){
+
+}
+
+body {
+  background: black;
+}
+#root{
+  display: grid;
+  margin: 0 auto; 
+  background: black;
+  height: 100vh;
+}
+.mainDiv{
+  display:grid;
+  grid-template-columns: repeat(50, 21px);
+  grid-auto-rows: 21px;
+  padding: 0;
+  margin: 0;
+  margin: 0 auto;
+  grid-gap: 0px;
+  grid-row-gap: 0px;
+}
+.death{
+  background: black;
+  width: 20px; 
+  height: 20px; 
+  border: 1px solid gray;
+}
+
+.alive{
+  @extend .death;
+  background: white;
+}
