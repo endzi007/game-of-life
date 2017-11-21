@@ -5,6 +5,7 @@ import Footer from './components/footer';
 import { Navbar, Grid } from 'react-bootstrap';
 import _ from 'lodash';
 import GridComponent from './components/gridComponent';
+import GameStore from './js/store';
 class App extends Component {
   render() {
     return (

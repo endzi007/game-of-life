@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
 import { Navbar, FormGroup, FormControl, Button, Nav, NavItem } from 'react-bootstrap';
+import * as actions from '../js/actions';
 class Header extends Component { 
-    handleChange(e){
-        var val = e.target.value;
-        this.props.filter(val);
+    handleClick(e){
+        let id = e.target.id;
+        switch (id) {
+            case "startGame":
+                actions.startGame();
+            break;
+            case "startGame":
+                actions.pauseGame();
+            break;
+            case "startGame":
+                actions.clearBoard();
+            break;
+            default:
+                break;
+        }
     }
     render(){
         return(
-        <Navbar fixedTop>
+        <Navbar>
             <Navbar.Header>
               <Navbar.Brand>
                 <a href="#">Game of Life</a>
@@ -21,9 +34,9 @@ class Header extends Component {
                     <li><a href="https://enis-jasarovic.com" target="_blank"><i className="fa fa-user-circle-o fa-lg" aria-hidden="true"></i> My Portfolio</a></li>
                 </ul> 
                 <Nav>
-                    <Button bsStyle="danger">Start</Button>
-                    <Button bsStyle="">Stop</Button>
-                    <Button bsStyle="">Clear</Button>
+                    <Button bsStyle="danger" id="startGame" onClick={this.handleClick.bind(this)}>Start</Button>
+                    <Button bsStyle="" id="stopGame">Stop</Button>
+                    <Button bsStyle="" id="clearBoard">Clear</Button>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>        
