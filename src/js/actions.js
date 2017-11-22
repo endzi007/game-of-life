@@ -13,9 +13,9 @@ export let startGame = () => {
     });
 }
 
-export let pauseGame = () => {
+export let stopGame = () => {
     Dispatcher.dispatch({
-        type: "PAUSE_GAME"
+        type: "STOP_GAME"
     });
 }
 

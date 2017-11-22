@@ -1,22 +1,31 @@
 import React, { Component } from "react";
 import GridItem from './gridItem';
+import GameStore from '../js/store';
 class GridComponent extends Component {
     constructor(){
         super();
         this.state = {
-            size: {
-                width: 50,
-                height: 30
-            }
+            board: []
         }
+    }
+
+    componentWillMount(){
+        GameStore.emit("change");
+    }
+    componentDidMount(){
+        GameStore.on("change", function(){
+            let temp = GameStore.returnBoardState();
+            this.setState({
+                board: temp
+            });
+        });
     }
     render(){
         var temp = [];
-        for(var x = 0; x<this.state.size.height; x++){
             for(var y = 0; y<this.state.size.width; y++){
                 temp.push(<GridItem x = {x} y = {y} class= "death"/>)
             }
-        }
+
         return(
             temp
         );

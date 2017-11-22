@@ -8,10 +8,10 @@ class Header extends Component {
             case "startGame":
                 actions.startGame();
             break;
-            case "startGame":
-                actions.pauseGame();
+            case "stopGame":
+                actions.stopGame();
             break;
-            case "startGame":
+            case "clearBoard":
                 actions.clearBoard();
             break;
             default:
@@ -35,8 +35,8 @@ class Header extends Component {
                 </ul> 
                 <Nav>
                     <Button bsStyle="danger" id="startGame" onClick={this.handleClick.bind(this)}>Start</Button>
-                    <Button bsStyle="" id="stopGame">Stop</Button>
-                    <Button bsStyle="" id="clearBoard">Clear</Button>
+                    <Button bsStyle="" id="stopGame" onClick={this.handleClick.bind(this)}>Stop</Button>
+                    <Button bsStyle="" id="clearBoard" onClick={this.handleClick.bind(this)}>Clear</Button>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>        
