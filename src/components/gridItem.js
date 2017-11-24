@@ -3,12 +3,15 @@ import * as actions from '../js/actions';
 
 class GridItem extends Component{
     handleClick(e){
-        actions.clickedObject("23");
+        let x = this.props.x;
+        let y = this.props.y;
+
+        actions.clickedObject(x, y);
         e.target.className="alive";
     }
     render(){
         return (
-            <div className = {this.props.class} onClick={this.handleClick}></div>
+            <div className = {this.props.class} onClick={this.handleClick.bind(this)}></div>
         );
     }
 }

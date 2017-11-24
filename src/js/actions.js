@@ -1,9 +1,10 @@
 import Dispatcher from './dispatcher';
 
-export let clickedObject = (text) => {
+export let clickedObject = (x, y) => {
     Dispatcher.dispatch({
         type: "OBJECT_CLICK",
-        id: text
+        x: x,
+        y: y
     });
 }
 

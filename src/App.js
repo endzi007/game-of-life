@@ -9,11 +9,13 @@ import GameStore from './js/store';
 class App extends Component {
   render() {
     return (
-
-      <div className="mainDiv">
-            <Header />
-        <GridComponent />
+      <div>
+        <Header />
+        <div className="mainDiv">
+         <GridComponent />
       </div>
+      </div>
+
     );
   }
 }

@@ -20,7 +20,7 @@ class Header extends Component {
     }
     render(){
         return(
-        <Navbar>
+        <Navbar inverse>
             <Navbar.Header>
               <Navbar.Brand>
                 <a href="#">Game of Life</a>
