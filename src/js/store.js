@@ -7,14 +7,15 @@ class GameStoreCon extends EventEmitter{
         super();
         this.state = {
             boardDim: {
-                width: 50,
-                height: 30
+                width: 100,
+                height: 80
             },
             board:[],
             oldBoard: [],
             on: true
         }
         this.addListener = this.addListener.bind(this);
+        this.countNeighbours = this.countNeighbours.bind(this);
     }
 
     objectClick(x, y){
@@ -32,7 +33,6 @@ class GameStoreCon extends EventEmitter{
         if(this.state.board.length === 0){
             this.setupGame();
         }
-        console.log(this.state.board);
         return this.state.board;
     }
 
@@ -41,7 +41,7 @@ class GameStoreCon extends EventEmitter{
         for (let i = 0; i < this.state.boardDim.height; i++) {
             let temp = [];
             for (let x = 0; x < this.state.boardDim.width; x++) {
-                let aliveItem = Math.round(Math.random()*50);
+                let aliveItem = Math.round(Math.random()*this.state.boardDim.width);
                 let obj = {
                     life: "",
                     x: "",
@@ -49,14 +49,14 @@ class GameStoreCon extends EventEmitter{
                 }
                 obj.x = x;
                 obj.y = i;
-                obj.life = "death";
-                /*
+                //obj.life = "death";
+                
                 if(x === aliveItem || x ===aliveItem+1 || x === aliveItem-1 || x === aliveItem-2){
-                    obj.life ="death";
+                    obj.life ="alive";
                 } else {
-                    obj.life = "alive";
+                    obj.life = "death";
                 }
-                */
+
                 temp.push(obj);
            }
            this.state.board.push(temp);
@@ -68,28 +68,67 @@ class GameStoreCon extends EventEmitter{
             const element = this.state.board[y];
             let temp = [];
             for (let x = 0; x < element.length; x++) {
-                let item = element[x];
-                let nw = {
-                    life: "",
-                    x: "",
-                    y: ""
-                }
-                nw.x = item.x;
-                nw.y = item.y
-                if(item.life === "alive"){
-                    nw.life = "death"
-                } else {
-                    nw.life = "alive";
-                }
-                temp.push(nw);
+                let objLife = this.countNeighbours(y, x);
+                let obj = {};
+                obj.x = x;
+                obj.y = y;
+                obj.life = objLife; 
+                temp.push(obj);
             }
             this.state.oldBoard.push(temp);
         }
         this.state.board = this.state.oldBoard;
         if(this.state.on){
-            setTimeout(this.playGame.bind(this), 1000);
+            setTimeout(this.playGame.bind(this), 50);
         }
         this.emit("change");
+    }
+
+    countNeighbours(y, x){
+        let count = 0;
+        const neighbours = [[y-1, x-1], 
+        [y-1, x], 
+        [y-1, x+1], 
+        [y, x-1], 
+        [y, x+1 ], 
+        [y+1 , x-1 ], 
+        [y+1, x], 
+        [y+1 , x+1]
+    ];
+        let objLife = "";
+            for (let i = 0; i < neighbours.length; i++) {
+                let item = neighbours[i];
+                let itemX = item[1];
+                let itemY = item[0];
+                if (itemY === -1){
+                    itemY = this.state.boardDim.height-1;
+                } else if(itemY > this.state.boardDim.height-1){
+                    itemY = 0;
+                } 
+                if (itemX === -1){
+                    itemX = this.state.boardDim.width-1;
+
+                } else if(itemX > this.state.boardDim.width-1){
+                    itemX = 0;
+                } 
+                if(this.state.board[itemY][itemX].life === "alive"){
+                    count++;
+                }
+            }
+            if(this.state.board[y][x].life ==="alive"){
+                if(count < 2 || count > 3){
+                    objLife = "death";
+                } else {
+                    objLife = "alive";
+                }
+            } else {
+                if(count === 3){
+                    objLife = "alive";
+                } else {
+                    objLife = "death";
+                }
+            }
+            return objLife;
     }
     startGame(){
         this.state.on = true;
