@@ -7,18 +7,20 @@ class GameStoreCon extends EventEmitter{
         super();
         this.state = {
             boardDim: {
-                width: 100,
-                height: 80
+                width: 70,
+                height: 50
             },
             board:[],
             oldBoard: [],
-            on: true
+            on: true,
+            generation: 0
         }
         this.addListener = this.addListener.bind(this);
         this.countNeighbours = this.countNeighbours.bind(this);
     }
 
     objectClick(x, y){
+        let newState = {...this.state.board};
         _.flatMap(this.state.board, (element) => {
             var index = _.findIndex(element, {x, y});
             if(index !== -1){
@@ -49,9 +51,8 @@ class GameStoreCon extends EventEmitter{
                 }
                 obj.x = x;
                 obj.y = i;
-                //obj.life = "death";
                 
-                if(x === aliveItem || x ===aliveItem+1 || x === aliveItem-1 || x === aliveItem-2){
+                if(x === aliveItem || x ===aliveItem+1 || x === aliveItem-1 || x === aliveItem-2 || x === aliveItem-3){
                     obj.life ="alive";
                 } else {
                     obj.life = "death";
@@ -63,6 +64,7 @@ class GameStoreCon extends EventEmitter{
         }
     }
     playGame(){
+        this.state.generation++;
         this.state.oldBoard = [];
         for (let y = 0; y < this.state.board.length; y++) {
             const element = this.state.board[y];
@@ -79,7 +81,7 @@ class GameStoreCon extends EventEmitter{
         }
         this.state.board = this.state.oldBoard;
         if(this.state.on){
-            setTimeout(this.playGame.bind(this), 50);
+            setTimeout(this.playGame.bind(this), 90);
         }
         this.emit("change");
     }
@@ -111,11 +113,11 @@ class GameStoreCon extends EventEmitter{
                 } else if(itemX > this.state.boardDim.width-1){
                     itemX = 0;
                 } 
-                if(this.state.board[itemY][itemX].life === "alive"){
+                if(this.state.board[itemY][itemX].life === "alive" || this.state.board[itemY][itemX].life === "born"){
                     count++;
                 }
             }
-            if(this.state.board[y][x].life ==="alive"){
+            if(this.state.board[y][x].life ==="alive" || this.state.board[y][x].life ==="born" ){
                 if(count < 2 || count > 3){
                     objLife = "death";
                 } else {
@@ -123,7 +125,7 @@ class GameStoreCon extends EventEmitter{
                 }
             } else {
                 if(count === 3){
-                    objLife = "alive";
+                    objLife = "born";
                 } else {
                     objLife = "death";
                 }
@@ -143,6 +145,7 @@ class GameStoreCon extends EventEmitter{
         _.map(_.flattenDeep(this.state.board),function(element){
             element.life = "death";
         });
+        this.state.generation = 0;
         this.emit("change");
     }
 

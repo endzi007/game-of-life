@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, FormGroup, FormControl, Button, Nav, NavItem } from 'react-bootstrap';
 import * as actions from '../js/actions';
+import Generation from './generationComponent';
 class Header extends Component { 
     handleClick(e){
         let id = e.target.id;
@@ -33,10 +34,12 @@ class Header extends Component {
                     <li><a href="https://linkedin.com/in/enis-jašarović-2b9794132" target="_blank"><i className="fa fa-linkedin fa-lg" aria-hidden="true"></i> linkedIn</a></li>
                     <li><a href="https://enis-jasarovic.com" target="_blank"><i className="fa fa-user-circle-o fa-lg" aria-hidden="true"></i> My Portfolio</a></li>
                 </ul> 
-                <Nav>
-                    <Button bsStyle="danger" id="startGame" onClick={this.handleClick.bind(this)}>Start</Button>
-                    <Button bsStyle="" id="stopGame" onClick={this.handleClick.bind(this)}>Stop</Button>
-                    <Button bsStyle="" id="clearBoard" onClick={this.handleClick.bind(this)}>Clear</Button>
+                <Nav className="padding">
+                    <li className="btn btn-primary" id="startGame" onClick={this.handleClick.bind(this)}>Start</li>
+                    <li className="btn btn-link dark" id="stopGame" onClick={this.handleClick.bind(this)}>Stop</li>
+                    <li className="btn btn-link dark" id="clearBoard" onClick={this.handleClick.bind(this)}>Clear</li>
+                    <li className="btn btn-link dark" id="70x50" onClick={this.handleClick.bind(this)}>70 x 50</li>
+                    <Generation />
                 </Nav>
             </Navbar.Collapse>
         </Navbar>        
