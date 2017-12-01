@@ -11,7 +11,7 @@ class GridItem extends Component{
     }
     render(){
         return (
-            <div className = {this.props.class} onClick={this.handleClick.bind(this)}></div>
+            <div className = {this.props.class} onClick={this.handleClick.bind(this)} style={{width: this.props.width, height: this.props.width}}></div>
         );
     }
 }

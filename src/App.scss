@@ -12,13 +12,10 @@ body {
 .mainDiv{
   display:flex;
   flex-flow: row wrap;
-  width: 1000px;
   margin: 0 auto;
 }
 .death{
   background: black;
-  width: $itemSize;
-  height: $itemSize;
   border-bottom: 1px solid rgba(255,255,255,0.2);
   border-right: 1px solid rgba(255,255,255,0.2);
 }
@@ -46,7 +43,7 @@ body {
 }
 
 #gameControls {
-  i.btn {
+  .btn {
     margin-left: 10px;
   }
 }

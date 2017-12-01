@@ -159,6 +159,7 @@ class GameStoreCon extends EventEmitter{
             this.state.boardDim.height = 30;
         }
         this.setupGame();
+        this.emit("changed width");
     }   
 
     addListener(action){
