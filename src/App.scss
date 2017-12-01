@@ -1,3 +1,4 @@
+@import './assets/css/font-awesome.css';
 $itemSize: 1000/70+px;
 body {
   background: #222;
@@ -42,4 +43,10 @@ body {
 .dark{
   background-color: black;
   color: white;
+}
+
+#gameControls {
+  i.btn {
+    margin-left: 10px;
+  }
 }

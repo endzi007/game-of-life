@@ -149,6 +149,18 @@ class GameStoreCon extends EventEmitter{
         this.emit("change");
     }
 
+    changeBoardSize(id){
+        console.log(id);
+        if(id === "70x50"){
+            this.state.boardDim.width = 70;
+            this.state.boardDim.height = 50;
+        } else if("50x30"){
+            this.state.boardDim.width = 50;
+            this.state.boardDim.height = 30;
+        }
+        this.setupGame();
+    }   
+
     addListener(action){
         switch (action.type) {
             case "OBJECT_CLICK":
@@ -163,6 +175,9 @@ class GameStoreCon extends EventEmitter{
             case "CLEAR_BOARD":
             this.clearBoard();
                 break;
+            case "CHANGE_BOARD_SIZE":
+            this.changeBoardSize(action.id);
+            break;
             default:
                 break;
         }

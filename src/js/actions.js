@@ -25,3 +25,10 @@ export let clearBoard = (text) => {
         type: "CLEAR_BOARD"
     });
 }
+
+export let changeBoardSize = (id) => {
+    Dispatcher.dispatch({
+        type: "CHANGE_BOARD_SIZE",
+        id: id
+    });
+}
