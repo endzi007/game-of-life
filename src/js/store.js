@@ -1,6 +1,7 @@
 import Dispatcher from './dispatcher';
 import { EventEmitter } from 'events';
 import _ from 'lodash';
+import gridItem from '../components/gridItem';
 
 class GameStoreCon extends EventEmitter{
     constructor(){
@@ -13,7 +14,8 @@ class GameStoreCon extends EventEmitter{
             board:[],
             oldBoard: [],
             on: true,
-            generation: 0
+            generation: 0,
+            itemsToRender: []
         }
         this.addListener = this.addListener.bind(this);
         this.countNeighbours = this.countNeighbours.bind(this);
@@ -64,6 +66,8 @@ class GameStoreCon extends EventEmitter{
         }
     }
     playGame(){
+        let date = new Date();
+        let now = date.getTime();
         this.state.generation++;
         this.state.oldBoard = [];
         for (let y = 0; y < this.state.board.length; y++) {
@@ -80,6 +84,8 @@ class GameStoreCon extends EventEmitter{
             this.state.oldBoard.push(temp);
         }
         this.state.board = this.state.oldBoard;
+        let finish = date.getTime();
+        console.log(finish);
         if(this.state.on){
             setTimeout(this.playGame.bind(this), 90);
         }
@@ -160,7 +166,11 @@ class GameStoreCon extends EventEmitter{
         }
         this.setupGame();
         this.emit("changed width");
-    }   
+    } 
+    makeStep(){
+        this.state.on = false;
+        this.playGame();
+    }
 
     addListener(action){
         switch (action.type) {
@@ -178,6 +188,9 @@ class GameStoreCon extends EventEmitter{
                 break;
             case "CHANGE_BOARD_SIZE":
             this.changeBoardSize(action.id);
+            break;
+            case "MAKE_STEP": 
+            this.makeStep();
             break;
             default:
                 break;

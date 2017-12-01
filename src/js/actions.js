@@ -32,3 +32,9 @@ export let changeBoardSize = (id) => {
         id: id
     });
 }
+
+export let makeStep = () => {
+    Dispatcher.dispatch({
+        type: "MAKE_STEP"
+    });
+}
