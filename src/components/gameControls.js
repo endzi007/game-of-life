@@ -20,6 +20,9 @@ class GameControls extends Component {
             case "50x30":
             actions.changeBoardSize(id);
             break;
+            case "100x70":
+            actions.changeBoardSize(id);
+            break;
             case "makeStep":
             actions.makeStep();
             break;
@@ -36,6 +39,7 @@ class GameControls extends Component {
                 <i className="btn btn-danger fa fa-repeat" id="makeStep" onClick={this.handleClick.bind(this)}></i>         
                 <i className="btn btn-default" id="70x50" onClick={this.handleClick.bind(this)}>70 x 50</i>
                 <i className="btn btn-default" id="50x30" onClick={this.handleClick.bind(this)}>50 x 30</i>
+                <i className="btn btn-default" id="100x70" onClick={this.handleClick.bind(this)}>100 x 70</i>
             </ul>
 
         );
